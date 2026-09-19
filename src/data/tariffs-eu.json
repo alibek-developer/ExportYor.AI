@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "hs6": "080410",
+      "desc": "Xurmo, anjir, ananas, avokado, guava, mango va mangostin, yangi yoki quritilgan",
+      "chapter": "08",
+      "euMfnPct": 0,
+      "uzGspPct": 0
+    },
+    {
+      "hs6": "070200",
+      "desc": "Pomidor, yangi yoki sovitilgan",
+      "chapter": "07",
+      "euMfnPct": 8.8,
+      "uzGspPct": 0
+    },
+    {
+      "hs6": "520100",
+      "desc": "Paxta, titilmagan va taralmagan",
+      "chapter": "52",
+      "euMfnPct": 0,
+      "uzGspPct": 0
+    },
+    {
+      "hs6": "100199",
+      "desc": "Bug'doy va meslin (boshqa)",
+      "chapter": "10",
+      "euMfnPct": 0,
+      "uzGspPct": 0
+    },
+    {
+      "hs6": "151211",
+      "desc": "Kungaboqar yog'i, xom",
+      "chapter": "15",
+      "euMfnPct": 6.4,
+      "uzGspPct": 0
+    },
+    {
+      "hs6": "847130",
+      "desc": "Portativ raqamli hisoblash mashinalari",
+      "chapter": "84",
+      "euMfnPct": 0,
+      "uzGspPct": 0
+    }
+  ]
+}

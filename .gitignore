@@ -15,7 +15,7 @@ dist
 # Secrets & ma'lumotlar
 .env
 .env.*
-data/
+/data/
 
 # Editor
 .vscode/*
