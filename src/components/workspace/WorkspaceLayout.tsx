@@ -246,7 +246,6 @@ export function WorkspaceLayout() {
           </div>
         )}
 
-
         {/* Sidebar Nav */}
         <nav className="flex-1 overflow-y-auto p-2 space-y-1">
           {NAV_ITEMS.map((item) => {

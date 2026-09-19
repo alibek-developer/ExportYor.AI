@@ -32,13 +32,7 @@ interface ChatViewProps {
   sentOfferIds: Record<string, boolean>;
 }
 
-const Typewriter = ({
-  text,
-  onComplete,
-}: {
-  text: string;
-  onComplete?: () => void;
-}) => {
+const Typewriter = ({ text, onComplete }: { text: string; onComplete?: () => void }) => {
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
@@ -58,7 +52,28 @@ const Typewriter = ({
 };
 
 // JSON ma'lumotlarni chiroyli ko'rsatish uchun komponentlar
-const JsonCards = ({ data }: { data: any }) => {
+interface DocAutoItem {
+  icon?: string;
+  nomi: string;
+}
+interface DocExternalItem {
+  icon?: string;
+  nomi: string;
+  qayerda?: string;
+  muddat?: string;
+  narx?: string;
+}
+interface DocOptionalItem {
+  icon?: string;
+  nomi: string;
+  sabab?: string;
+}
+interface JsonCardsData {
+  biz_tayyorlaymiz?: DocAutoItem[];
+  siz_olasiz?: DocExternalItem[];
+  ixtiyoriy?: DocOptionalItem[];
+}
+const JsonCards = ({ data }: { data: JsonCardsData }) => {
   if (!data) return null;
 
   return (
@@ -71,7 +86,7 @@ const JsonCards = ({ data }: { data: any }) => {
             Biz tayyorlab beramiz
           </h4>
           <div className="grid gap-2">
-            {data.biz_tayyorlaymiz.map((item: any, i: number) => (
+            {data.biz_tayyorlaymiz.map((item: DocAutoItem, i: number) => (
               <div
                 key={i}
                 className="flex items-center justify-between rounded-xl border border-emerald-500/20 bg-emerald-50 px-3 py-2.5 dark:bg-emerald-500/10 dark:border-emerald-500/30 shadow-xs"
@@ -100,7 +115,7 @@ const JsonCards = ({ data }: { data: any }) => {
             Siz olishingiz kerak (Tashqi)
           </h4>
           <div className="grid gap-2">
-            {data.siz_olasiz.map((item: any, i: number) => (
+            {data.siz_olasiz.map((item: DocExternalItem, i: number) => (
               <div
                 key={i}
                 className="rounded-xl border border-blue-100 bg-white px-3 py-2.5 dark:bg-slate-900/50 dark:border-slate-800 shadow-xs"
@@ -128,20 +143,16 @@ const JsonCards = ({ data }: { data: any }) => {
             Ixtiyoriy (Tavsiya etiladi)
           </h4>
           <div className="grid gap-2">
-            {data.ixtiyoriy.map((item: any, i: number) => (
+            {data.ixtiyoriy.map((item: DocOptionalItem, i: number) => (
               <div
                 key={i}
                 className="rounded-xl border border-slate-200 border-dashed bg-slate-50 px-3 py-2.5 dark:bg-slate-900/30 dark:border-slate-800"
               >
                 <div className="flex items-center gap-2">
                   <span className="text-base">{item.icon || "⭐"}</span>
-                  <span className="font-bold text-slate-700 dark:text-slate-300">
-                    {item.nomi}
-                  </span>
+                  <span className="font-bold text-slate-700 dark:text-slate-300">{item.nomi}</span>
                 </div>
-                <div className="pl-7 mt-0.5 text-[11px] text-slate-500">
-                  {item.sabab}
-                </div>
+                <div className="pl-7 mt-0.5 text-[11px] text-slate-500">{item.sabab}</div>
               </div>
             ))}
           </div>
@@ -200,9 +211,7 @@ export function ChatView({
       <div className="flex h-12 shrink-0 items-center justify-between border-b border-slate-100 dark:border-slate-800 px-4 bg-white dark:bg-slate-950">
         <div className="flex items-center gap-2">
           <span className="text-lg">🤖</span>
-          <span className="text-sm font-bold text-slate-800 dark:text-slate-100">
-            ExportYor AI
-          </span>
+          <span className="text-sm font-bold text-slate-800 dark:text-slate-100">ExportYor AI</span>
         </div>
 
         {!isPanelOpen && (
@@ -260,11 +269,7 @@ export function ChatView({
               </div>
 
               {/* Message Bubble */}
-              <div
-                className={`flex flex-col max-w-[80%] ${
-                  isUser ? "items-end" : "items-start"
-                }`}
-              >
+              <div className={`flex flex-col max-w-[80%] ${isUser ? "items-end" : "items-start"}`}>
                 <div
                   className={`px-4 py-3 text-[14px] leading-[1.6] shadow-sm rounded-2xl ${
                     isUser
@@ -275,9 +280,7 @@ export function ChatView({
                   {isNewAiMessage ? (
                     <Typewriter
                       text={mainText}
-                      onComplete={() =>
-                        setTypedMap((prev) => ({ ...prev, [msg.id]: true }))
-                      }
+                      onComplete={() => setTypedMap((prev) => ({ ...prev, [msg.id]: true }))}
                     />
                   ) : (
                     <div className="whitespace-pre-wrap">{mainText}</div>
@@ -287,9 +290,7 @@ export function ChatView({
                   {!isNewAiMessage && jsonData && <JsonCards data={jsonData} />}
                 </div>
 
-                <div className="mt-1 text-[10px] text-slate-400 font-medium px-1">
-                  {msg.time}
-                </div>
+                <div className="mt-1 text-[10px] text-slate-400 font-medium px-1">{msg.time}</div>
               </div>
             </div>
           );

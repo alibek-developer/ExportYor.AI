@@ -17,5 +17,7 @@ Brauzerda [http://localhost:3000](http://localhost:3000) ochiladi.
 npm run build
 npm start
 ```
+
 # exportyorai
+
 # ExportYor.AI

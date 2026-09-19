@@ -1,7 +1,5 @@
 {
   "model": "glm-5.3:free",
-  "messages": [
-    {"role": "user", "content": "Assalomu alaykum"}
-  ],
+  "messages": [{ "role": "user", "content": "Assalomu alaykum" }],
   "max_tokens": 100
 }

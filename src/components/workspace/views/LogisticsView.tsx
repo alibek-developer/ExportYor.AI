@@ -321,7 +321,7 @@ export function LogisticsView({
               <span className="font-bold text-foreground">{result.route}</span>
             </div>
             <div>
-              <span className="text-muted-foreground block">Sug'urta:</span>
+              <span className="text-muted-foreground block">Sug&apos;urta:</span>
               <span className="font-bold text-foreground">
                 {formatMoney(result.insurance, currency)}
               </span>

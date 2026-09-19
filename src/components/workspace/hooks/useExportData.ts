@@ -130,16 +130,18 @@ function loadMessages(): ChatMessage[] {
 function loadSessions(): ChatSession[] {
   const saved = readJson<ChatSession[]>(STORAGE_KEY_SESSIONS);
   if (Array.isArray(saved) && saved.length > 0) return saved;
-  
+
   // Migration: agar oldingi messages bo'lsa, ularni session qilib saqlaymiz
   const oldMessages = loadMessages();
   if (oldMessages.length > 1) {
-    return [{
-      id: generateId(),
-      title: "Oldingi suhbat",
-      messages: oldMessages,
-      updatedAt: new Date().toISOString()
-    }];
+    return [
+      {
+        id: generateId(),
+        title: "Oldingi suhbat",
+        messages: oldMessages,
+        updatedAt: new Date().toISOString(),
+      },
+    ];
   }
   return [];
 }
@@ -301,10 +303,10 @@ export function useExportData() {
 
     setChatSessions((prev) => {
       const existingIndex = prev.findIndex((s) => s.id === currentSessionId);
-      
+
       // Sarlavhani birinchi user xabaridan olamiz
       let title = "Yangi suhbat";
-      const firstUserMsg = messages.find(m => m.sender === "user");
+      const firstUserMsg = messages.find((m) => m.sender === "user");
       if (firstUserMsg) {
         title = firstUserMsg.text.slice(0, 30);
         if (firstUserMsg.text.length > 30) title += "...";
@@ -316,15 +318,17 @@ export function useExportData() {
           ...updated[existingIndex],
           messages,
           title,
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         };
-        return updated.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        return updated.sort(
+          (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        );
       } else {
         const newSession = {
           id: currentSessionId,
           title,
           messages,
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         };
         return [newSession, ...prev];
       }
@@ -438,7 +442,7 @@ export function useExportData() {
       temperature: input.temperatureRequired ? "+2°C ... +4°C" : undefined,
       notes: [
         "Narxlar taxminiy — aniq narx uchun logistika kompaniyasiga murojaat qiling",
-        "Sug&apos;urta narxiga CMR sug&apos;urtasi kiritilgan",
+        "Sug'urta narxiga CMR sug'urtasi kiritilgan",
         input.temperatureRequired ? "Refrijerator talab qilinadi" : "",
       ].filter(Boolean),
     };
@@ -743,23 +747,29 @@ export function useExportData() {
   }, []);
 
   // Switch chat session
-  const switchChat = useCallback((id: string) => {
-    const session = chatSessions.find(s => s.id === id);
-    if (session) {
-      setCurrentSessionId(id);
-      setMessages(session.messages);
-      setActiveView("chat");
-    }
-  }, [chatSessions]);
+  const switchChat = useCallback(
+    (id: string) => {
+      const session = chatSessions.find((s) => s.id === id);
+      if (session) {
+        setCurrentSessionId(id);
+        setMessages(session.messages);
+        setActiveView("chat");
+      }
+    },
+    [chatSessions],
+  );
 
   // Delete chat session
-  const deleteChat = useCallback((id: string) => {
-    setChatSessions(prev => prev.filter(s => s.id !== id));
-    if (currentSessionId === id) {
-      setCurrentSessionId(generateId());
-      setMessages([WELCOME_MESSAGE]);
-    }
-  }, [currentSessionId]);
+  const deleteChat = useCallback(
+    (id: string) => {
+      setChatSessions((prev) => prev.filter((s) => s.id !== id));
+      if (currentSessionId === id) {
+        setCurrentSessionId(generateId());
+        setMessages([WELCOME_MESSAGE]);
+      }
+    },
+    [currentSessionId],
+  );
 
   return {
     // Navigation
